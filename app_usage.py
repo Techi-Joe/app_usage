@@ -1,21 +1,25 @@
 import psutil
 import time
-import pickle
+from os.path import exists
 loop = 0
-
-file = open("app_time.txt", "w")
-
+file_loop = 0
+if exists("app_time.txt"):
+    file = open("app_time.txt", "r")
+    file_loop = int(file.read())
+    file.close()
+else:
+    file = open("app_time.txt", "w")
 while True:
-    time.sleep(3)
-    if ("Resolve.exe" in (i.name() for i in psutil.process_iter())):
+    time.sleep(1)
+    if ("Spotify.exe" in (i.name() for i in psutil.process_iter())):
         loop+=1
-        print("Resolve.exe is running!")
+        print("Spotify.exe is running!")
     elif (loop >= 1):
         print(str(loop) + " minutes have been recorded.")
         break
-input("\ndump data? (y/n): ")
-if input == "y":
-    pickle.dump(loop, file)
+usr_in = input("\nSave data? (y/n): ")
+if usr_in == "y":
+    file = open("app_time.txt", "w")
+    print(str(file_loop+loop) + " total minutes")
+    file.write(str(file_loop+loop))
 file.close()
-with open('app_time.txt', 'rb') as f:
-    file_loop = pickle.load(f)
