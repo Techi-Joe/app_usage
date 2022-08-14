@@ -10,10 +10,10 @@ if exists("app_time.txt"):
 else:
     file = open("app_time.txt", "w")
 while True:
-    time.sleep(1)
-    if ("Spotify.exe" in (i.name() for i in psutil.process_iter())):
+    time.sleep(60)
+    if ("Resolve.exe" in (i.name() for i in psutil.process_iter())):
         loop+=1
-        print("Spotify.exe is running!")
+        print("Resolve.exe is running!")
     elif (loop >= 1):
         print(str(loop) + " minutes have been recorded.")
         break
