@@ -1,5 +1,5 @@
 # session data
-.txt
+*.txt
 
 # executable folder
 output/
