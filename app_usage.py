@@ -17,7 +17,7 @@ if exists("app_time.txt"):
         file_loop = int(file_list[0])
         file_app = file_list[1]
         file.close()
-        print("Adding time to previous session(s) of " + str(file_loop) + " seconds in " + file_app)
+        print("Adding time to previous session(s) of " + str(int((file_loop)/3600)) + " hours " + str(int((file_loop)%3600)) + " minutes and " + str((file_loop)%60) + " seconds in" + file_app)
     elif ans == "r":
         os.remove("app_time.txt")
         file_app = input("What new app would you like to track? ")
