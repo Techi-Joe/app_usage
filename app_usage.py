@@ -3,6 +3,9 @@ import time
 from os.path import exists
 import os
 
+def time_breakdown(secs):
+    return str(int((secs)/3600)) + " hours " + str(int((secs)%3600)) + " minutes and " + str((secs)%60 + " seconds")
+
 loop = 0
 file_loop = 0
 file_list = []
@@ -17,7 +20,7 @@ if exists("app_time.txt"):
         file_loop = int(file_list[0])
         file_app = file_list[1]
         file.close()
-        print("Adding time to previous session(s) of " + str(int((file_loop)/3600)) + " hours " + str(int((file_loop)%3600)) + " minutes and " + str((file_loop)%60) + " seconds in" + file_app)
+        print("Adding time to previous session(s) of " + time_breakdown(file_loop) + " in" + file_app)
     elif ans == "r":
         os.remove("app_time.txt")
         file_app = input("What new app would you like to track? ")
@@ -38,17 +41,17 @@ while run:
     if (file_app in (i.name() for i in psutil.process_iter())):
         loop+=1
         if loop%1800 == 0:
-            print(file_app + " has been running for " + str(loop/60) + " minutes this session!")
+            print(file_app + " has been running for " + time_breakdown(loop))
         elif loop == 1:
             print(file_app + " is being tracked!")
     elif (loop >= 1):
-        print(str(loop) + " seconds have been recorded.")
+        print(time_breakdown(loop) + " have been recorded.")
         break
 if run:
     usr_in = input("\nSave data? (y/n): ")
     if usr_in == "y":
         file = open("app_time.txt", "w")
-        print("total project runtime: " + str(int((file_loop+loop)/3600)) + " hours " + str(int((file_loop+loop)%3600)) + " minutes and " + str((file_loop+loop)%60) + " seconds")
+        print("total project runtime: " + time_breakdown(file_loop+loop))
         file.write(str(file_loop+loop) + "\n" + file_app)
     file.close()
     input("Press enter to exit")
