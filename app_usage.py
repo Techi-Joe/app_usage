@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 import psutil
 import time
 from os.path import exists
@@ -38,7 +37,7 @@ while run:
     time.sleep(1)
     if (file_app in (i.name() for i in psutil.process_iter())):
         loop+=1
-        if loop%600 == 0:
+        if loop%1800 == 0:
             print(file_app + " has been running for " + str(loop/60) + " minutes this session!")
         elif loop == 1:
             print(file_app + " is being tracked!")
