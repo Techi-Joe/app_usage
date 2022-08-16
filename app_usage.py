@@ -2,7 +2,9 @@ import psutil
 import time
 from os.path import exists
 import os
-os.mkdir("data/")
+
+if not exists("data/"):
+    os.mkdir("data/")
 
 def time_breakdown(secs):
     return str(int((secs)%(24*3600)/3600)) + " hours " + str(int((secs%3600)/60)) + " minutes and " + str((secs)%60) + " seconds"
