@@ -3,6 +3,9 @@ import time
 from os.path import exists
 import os
 
+if not exists("data/"):
+    os.mkdir("data/")
+
 def time_breakdown(secs):
     return str(int((secs)%(24*3600)/3600)) + " hours " + str(int((secs%3600)/60)) + " minutes and " + str((secs)%60) + " seconds"
 
@@ -12,17 +15,17 @@ file_list = []
 file_app = ""
 run = True
 
-if exists("app_time.txt"):
+if exists("data/app_time.txt"):
     ans = input("Continue from previous session (c) or reset to a new one? (r): ")
     if ans == "c":
-        file = open("app_time.txt", "r")
+        file = open("data/app_time.txt", "r")
         file_list = file.readlines()
         file_loop = int(file_list[0])
         file_app = file_list[1]
         file.close()
         print("Adding time to previous session(s) of " + time_breakdown(file_loop) + " in " + file_app)
     elif ans == "r":
-        os.remove("app_time.txt")
+        os.remove("data/app_time.txt")
         file_app = input("What new app would you like to track? ")
         print("open " + file_app + " to begin tracking!")
     else:
@@ -50,7 +53,7 @@ while run:
 if run:
     usr_in = input("\nSave data? (y/n): ")
     if usr_in == "y":
-        file = open("app_time.txt", "w")
+        file = open("dataapp_time.txt", "w")
         print("total project runtime: " + time_breakdown(file_loop+loop))
         file.write(str(file_loop+loop) + "\n" + file_app)
     file.close()
