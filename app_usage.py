@@ -4,7 +4,7 @@ from os.path import exists
 import os
 
 def time_breakdown(secs):
-    return str(int((secs)/3600)) + " hours " + str(int((secs)%3600)) + " minutes and " + str((secs)%60 + " seconds")
+    return str(int((secs)%(24*3600)/3600)) + " hours " + str(int((secs%3600)/60)) + " minutes and " + str((secs)%60) + " seconds"
 
 loop = 0
 file_loop = 0
@@ -20,7 +20,7 @@ if exists("app_time.txt"):
         file_loop = int(file_list[0])
         file_app = file_list[1]
         file.close()
-        print("Adding time to previous session(s) of " + time_breakdown(file_loop) + " in" + file_app)
+        print("Adding time to previous session(s) of " + time_breakdown(file_loop) + " in " + file_app)
     elif ans == "r":
         os.remove("app_time.txt")
         file_app = input("What new app would you like to track? ")
