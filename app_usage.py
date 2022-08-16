@@ -53,7 +53,7 @@ while run:
 if run:
     usr_in = input("\nSave data? (y/n): ")
     if usr_in == "y":
-        file = open("dataapp_time.txt", "w")
+        file = open("data/app_time.txt", "w")
         print("total project runtime: " + time_breakdown(file_loop+loop))
         file.write(str(file_loop+loop) + "\n" + file_app)
     file.close()
