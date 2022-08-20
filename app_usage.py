@@ -25,7 +25,8 @@ if exists("data/app_time.txt"):
         file.close()
         print("Adding time to previous session(s) of " + time_breakdown(file_loop) + " in " + file_app)
     elif ans == "r":
-        os.remove("data/app_time.txt")
+        file = open("data/app_time.txt", "w")
+        file.write("")
         file_app = input("What new app would you like to track? ")
         print("open " + file_app + " to begin tracking!")
     else:
