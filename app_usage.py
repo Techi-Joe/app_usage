@@ -27,6 +27,7 @@ if exists("data/app_time.txt"):
     elif ans == "r":
         file = open("data/app_time.txt", "w")
         file.write("")
+        file.close()
         file_app = input("What new app would you like to track? ")
         print("open " + file_app + " to begin tracking!")
     else:
