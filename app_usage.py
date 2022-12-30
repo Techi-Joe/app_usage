@@ -72,7 +72,7 @@ while run:
 
 # ask user if they want to save data
 if run:
-    usr_in = input("\nSave data? (y/n): ")
+    usr_in = input("\nSave data to \'data/app_time.txt\'? (y/n): ")
     if not usr_in == "n":
         file = open("data/app_time.txt", "w")
         print("total project runtime: " + time_breakdown(file_loop+loop))
