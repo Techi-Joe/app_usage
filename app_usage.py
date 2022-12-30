@@ -56,7 +56,7 @@ else:
         file_app = input("(Note: use the executable name rather than the app name; i.e \'Resolve.exe\' instead of \'DaVinci Resolve\')\nWhat app would you like to track? ")
         if is_exe(file_app):
             flag = False
-    file = open("app_time.txt", "w")
+    file = open("data/app_time.txt", "w")
 
 # main loop
 while run:
