@@ -5,15 +5,18 @@ import os
 print("Please ensure that the target application is running")
 time.sleep(1)
 
+run = False
+
 # Creates a directory for user data
 os.makedirs("data/", exist_ok=True)
 
 # Checks if target executable is running
-def is_exe(name):
+def is_exe(name, run):
     for process in psutil.process_iter(['name']):
         if name == process.info['name']:
             return True
-    print("Error: Could not find running executable by name " + name)
+    if run == False:
+        print("Error: Could not find running executable by name " + name)
 
 # Takes time in seconds and returns a formatted string
 def time_breakdown(secs):
@@ -44,7 +47,7 @@ if os.path.exists(data_file_path):
         flag = True
         while flag:
             file_app = input("What new app would you like to track? ")
-            if is_exe(file_app):
+            if is_exe(file_app, run):
                 flag = False
     else:
         print("Error: Invalid user input. Press enter to exit and try again.")
@@ -54,7 +57,7 @@ else:
     flag = True
     while flag:
         file_app = input("(Note: use the executable name rather than the app name; i.e 'Resolve.exe' instead of 'DaVinci Resolve')\nWhat app would you like to track? ")
-        if is_exe(file_app):
+        if is_exe(file_app, run):
             flag = False
 
 with open(data_file_path, "w") as file:
@@ -63,7 +66,7 @@ with open(data_file_path, "w") as file:
 # Main loop
 while run:
     time.sleep(1)
-    if is_exe(file_app):
+    if is_exe(file_app, run):
         loop += 1
         if loop == 1:
             print(file_app + " is being tracked!")
