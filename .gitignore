@@ -9,3 +9,6 @@ output/
 
 # base 64 version of code for EXE
 b64.py
+
+# virtual environment
+/.venv
