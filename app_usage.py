@@ -56,7 +56,7 @@ if os.path.exists(data_file_path):
 else:
     flag = True
     while flag:
-        file_app = input("(Note: use the executable name rather than the app name; i.e 'Resolve.exe' instead of 'DaVinci Resolve')\nWhat app would you like to track? ")
+        file_app = input("(Note: on windows, use the executable name rather than the app name; i.e 'Resolve.exe' instead of 'DaVinci Resolve')\nWhat app would you like to track? ")
         if is_exe(file_app, run):
             flag = False
 
