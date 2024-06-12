@@ -11,7 +11,6 @@ This Python script tracks the runtime of a specified application, logging the du
 ## Requirements
 
 - Python 3.12
-- Check Requirements.txt
 
 ## Installation
 
@@ -26,7 +25,7 @@ This Python script tracks the runtime of a specified application, logging the du
 
 1. Run the script:
     ```sh
-    python app_runtime_tracker.py
+    python app_usage.py
     ```
 
 2. The script will prompt you to ensure that the target application is running. After a short delay, it will proceed.
