@@ -1,5 +1,5 @@
 # session data
-*.txt
+data/*.txt
 
 # log files
 *.log

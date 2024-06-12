@@ -2,7 +2,7 @@ import psutil
 import time
 import os
 
-print("Please ensure that the target application is running")
+print("\n*** Please ensure that the target application is running ***\n")
 time.sleep(1)
 
 run = False
@@ -50,7 +50,7 @@ if os.path.exists(data_file_path):
             if is_exe(file_app, run):
                 flag = False
             else:
-                print("Error: Please ensure that the target application is running")
+                print("Please ensure that the target application is running")
     else:
         print("Error: Invalid user input. Press enter to exit and try again.")
         input()
@@ -58,7 +58,7 @@ if os.path.exists(data_file_path):
 else:
     flag = True
     while flag:
-        file_app = input("(Note: on windows, use the executable name rather than the app name; i.e 'Resolve.exe' instead of 'DaVinci Resolve')\nWhat app would you like to track? ")
+        file_app = input("(Note: on windows, use the executable name rather than the app name; e.g., 'Spotify.exe' instead of 'Spotify')\nWhat app would you like to track? ")
         if is_exe(file_app, run):
             flag = False
 
@@ -86,4 +86,6 @@ if run:
         print("Total project runtime: " + time_breakdown(file_loop+loop))
     elif usr_in.lower() not in ["y", "n"]:
         print("Warning: Bad user input, runtime was saved automatically")
+        with open(data_file_path, "w") as file:
+            file.write(f"{file_loop+loop}\n{file_app}")
     input("Press enter to exit")
