@@ -35,7 +35,7 @@ run = True
 data_file_path = "data/app_time.txt"
 
 if os.path.exists(data_file_path):
-    ans = input("Continue from previous session (c) or reset to a new one? (r): ")
+    ans = input("Continue from previous session (c) or reset to a new one? (r): ").lower()
     if ans == "c":
         with open(data_file_path, "r") as file:
             file_list = file.readlines()
@@ -49,6 +49,8 @@ if os.path.exists(data_file_path):
             file_app = input("What new app would you like to track? ")
             if is_exe(file_app, run):
                 flag = False
+            else:
+                print("Error: Please ensure that the target application is running")
     else:
         print("Error: Invalid user input. Press enter to exit and try again.")
         input()
@@ -82,6 +84,6 @@ if run:
         with open(data_file_path, "w") as file:
             file.write(f"{file_loop+loop}\n{file_app}")
         print("Total project runtime: " + time_breakdown(file_loop+loop))
-    elif usr_in.lower() != "y" and usr_in.lower() != "n":
+    elif usr_in.lower() not in ["y", "n"]:
         print("Warning: Bad user input, runtime was saved automatically")
     input("Press enter to exit")
