@@ -2,7 +2,6 @@ import glob
 import psutil
 import time
 import os
-import sys
 
 # Constant variables
 
@@ -20,7 +19,7 @@ file_dict = {}
 print("\n*** Please ensure that the target application is running ***\n")
 time.sleep(1)
 
-run = False
+run = True
 
 # Checks if any text file exists in the directory
 def any_text_file_exists(directory):
@@ -60,9 +59,9 @@ if any_text_file_exists(data_file_dir):
     ans = input("Continue from previous session (c) or start a new one (n)? ").lower()
     if ans == "c":
         # Let user choose which app to continue
-        print("Available apps to continue:")
+        print("Available sessions to continue:")
         for app in file_dict:
-            print(f"- Name: {app}, Time: {time_breakdown(app[0])}")
+            print(f"- {app}: {time_breakdown(int(file_dict[app]))} on record")
         file_app = input("Which app would you like to continue tracking? ")
         if file_app in file_dict:
             file_time = file_dict[file_app]
@@ -89,14 +88,15 @@ else:
         file_app = input("(Note: on windows, use the executable name rather than the app name; e.g., 'Spotify.exe' instead of 'Spotify')\n\nWhat app would you like to track? ")
         if is_exe(file_app, run):
             flag = False
-            data_file = f"{data_file_dir}/{file_app}_data.txt"
+            data_file = f"{data_file_dir}{file_app}_data.txt"
 
 try:
     with open(data_file, "w") as file:
         pass
 except FileNotFoundError:
     input("Data file not found or was corrupted. Press enter to exit and try again.")
-    sys.exit()
+    data_file = ""
+    file_app = ""
 
 start_time = time.time()
 # Main loop
