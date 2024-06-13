@@ -12,9 +12,18 @@ This Python script tracks the runtime of a specified application, logging the du
 
 - Python 3.12
 
-## Installation
+## Installation (stable)
 
-1. Clone this repository or download the repository as a zip.
+1. Check [releases](https://github.com/Techi-Joe/app_usage/releases)
+2. download the latest version
+
+## Installation (newest version, may be unstable)
+
+1. Clone this repository:
+    ```sh
+    git clone https://github.com/Techi-Joe/app_usage
+    ```
+
 2. Ensure you have Python 3.12 installed on your system.
 3. Install the required libraries:
     ```sh
@@ -23,7 +32,7 @@ This Python script tracks the runtime of a specified application, logging the du
 
 ## Usage
 
-1. Run the script:
+1. Run the script (for stable releases, simply double-click the exe):
     ```sh
     python app_usage.py
     ```
@@ -32,7 +41,7 @@ This Python script tracks the runtime of a specified application, logging the du
 
 3. If a previous session is detected, you will be prompted to continue from the previous session or start a new one:
     - **Continue**: The script will add time to the previous session's runtime.
-    - **Reset**: The script will start a new tracking session.
+    - **New**: The script will start a new tracking session.
 
 4. If starting a new session, enter the exact name of the executable you want to track. For Windows, this should be the executable name (e.g., `Spotify.exe` for Spotify).
 
@@ -45,4 +54,4 @@ This Python script tracks the runtime of a specified application, logging the du
 ## Notes
 
 - Ensure the application to be tracked is running before you start the script.
-- The script saves runtime data in `data/app_time.txt`.
+- The script saves runtime data in `data/[app name].txt`.

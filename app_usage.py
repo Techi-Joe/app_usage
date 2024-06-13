@@ -1,3 +1,4 @@
+import glob
 import psutil
 import time
 import os
@@ -6,6 +7,10 @@ print("\n*** Please ensure that the target application is running ***\n")
 time.sleep(1)
 
 run = False
+
+# Checks if any text file exists in the directory
+def any_text_file_exists(directory):
+    return bool(glob.glob(os.path.join(directory, '*.txt')))
 
 # Creates a directory for user data
 os.makedirs("data/", exist_ok=True)
@@ -25,25 +30,26 @@ def time_breakdown(secs):
     return f"{hours} hours {minutes} minutes and {seconds} seconds"
 
 # Constant variables
-loop = 0
-file_loop = 0
+recorded_seconds = 0
+file_time = 0
 file_list = []
 file_app = ""
 run = True
+data_file = ""
 
 # Handling for data file
-data_file_path = "data/app_time.txt"
+data_file_dir = "data/"
 
-if os.path.exists(data_file_path):
-    ans = input("Continue from previous session (c) or reset to a new one? (r): ").lower()
+if any_text_file_exists(data_file_dir):
+    ans = input("Continue from previous session (c) or start to a new one? (n): ").lower()
     if ans == "c":
-        with open(data_file_path, "r") as file:
+        with open(data_file, "r") as file:
             file_list = file.readlines()
-            file_loop = int(file_list[0])
+            file_time = int(file_list[0])
             file_app = file_list[1].rstrip('\n')
-        print(f"Adding time to previous session(s) of {time_breakdown(file_loop)} in {file_app}")
-    elif ans == "r":
-        os.remove(data_file_path)
+        print(f"Adding time to previous session(s) of {time_breakdown(file_time)} in {file_app}")
+    elif ans == "n":
+        os.remove(data_file)
         flag = True
         while flag:
             file_app = input("What new app would you like to track? ")
@@ -58,34 +64,40 @@ if os.path.exists(data_file_path):
 else:
     flag = True
     while flag:
-        file_app = input("(Note: on windows, use the executable name rather than the app name; e.g., 'Spotify.exe' instead of 'Spotify')\nWhat app would you like to track? ")
+        file_app = input("(Note: on windows, use the executable name rather than the app name; e.g., 'Spotify.exe' instead of 'Spotify')\n\nWhat app would you like to track? ")
         if is_exe(file_app, run):
             flag = False
+            data_file = f"{data_file_dir}/{file_app}_data.txt"
 
-with open(data_file_path, "w") as file:
+with open(data_file, "w") as file:
     pass
 
+start_time = time.time()
 # Main loop
 while run:
-    time.sleep(1)
+    current_time = time.time()
+    elapsed_time = round(current_time - start_time)
+
     if is_exe(file_app, run):
-        loop += 1
-        if loop == 1:
-            print(file_app + " is being tracked!")
-        else:
-            print('\r' + time_breakdown(loop) + " recorded this session", end="")
-    elif loop >= 1:
+        if elapsed_time > recorded_seconds:
+            recorded_seconds += 1
+            if recorded_seconds == 1:
+                start_time = time.time()
+                print(file_app + " is being tracked!")
+        elif recorded_seconds > 0:
+            print('\r' + time_breakdown(recorded_seconds) + " recorded this session", end="")
+    elif recorded_seconds >= 1:
         break
 
 # Ask the user if they want to save data
 if run:
-    usr_in = input("\nSave data to 'data/app_time.txt'? (y/n): ")
+    usr_in = input(f"\nSave data to '{data_file}'? (y/n): ")
     if usr_in.lower() != "n":
-        with open(data_file_path, "w") as file:
-            file.write(f"{file_loop+loop}\n{file_app}")
-        print("Total project runtime: " + time_breakdown(file_loop+loop))
+        with open(data_file, "w") as file:
+            file.write(f"{file_time+recorded_seconds}\n{file_app}")
+        print("Total project runtime: " + time_breakdown(file_time+recorded_seconds))
     elif usr_in.lower() not in ["y", "n"]:
         print("Warning: Bad user input, runtime was saved automatically")
-        with open(data_file_path, "w") as file:
-            file.write(f"{file_loop+loop}\n{file_app}")
+        with open(data_file, "w") as file:
+            file.write(f"{file_time+recorded_seconds}\n{file_app}")
     input("Press enter to exit")
