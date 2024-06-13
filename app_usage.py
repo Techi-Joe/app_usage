@@ -2,6 +2,8 @@ import glob
 import psutil
 import time
 import os
+import sys
+
 
 # Constant variables
 
@@ -16,10 +18,19 @@ data_file_dir = "data/"
 # appname : time
 file_dict = {}
 
+# Creates a directory for user data
+os.makedirs(data_file_dir, exist_ok=True)
+
 print("\n*** Please ensure that the target application is running ***\n")
 time.sleep(1)
 
 run = True
+
+def clear():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 # Checks if any text file exists in the directory
 def any_text_file_exists(directory):
@@ -35,9 +46,6 @@ def parse_data_file(directory):
                 app_name = lines[1].strip()
                 app_time = int(lines[0].strip())
                 file_dict[app_name] = app_time
-
-# Creates a directory for user data
-os.makedirs("data/", exist_ok=True)
 
 # Checks if target executable is running
 def is_exe(name, run):
@@ -65,10 +73,9 @@ if any_text_file_exists(data_file_dir):
         file_app = input("Which app would you like to continue tracking? ")
         if file_app in file_dict:
             file_time = file_dict[file_app]
-            data_file = f"{data_file_dir}/{file_app}_data.txt"
-            print(f"Adding time to previous session(s) of {time_breakdown(file_time)} in {file_app}")
+            data_file = f"{data_file_dir}{file_app}_data.txt"
         else:
-            print("Error: App not found. Starting a new session.")
+            print("Error: App not found.")
             ans = "n"
     elif ans == "n" or file_app == "":
         flag = True
@@ -76,6 +83,7 @@ if any_text_file_exists(data_file_dir):
             file_app = input("What new app would you like to track? ")
             if is_exe(file_app, run):
                 flag = False
+                data_file = f"{data_file_dir}{file_app}_data.txt"
             else:
                 print("Please ensure that the target application is running")
     else:
@@ -94,9 +102,10 @@ try:
     with open(data_file, "w") as file:
         pass
 except FileNotFoundError:
-    input("Data file not found or was corrupted. Press enter to exit and try again.")
-    data_file = ""
-    file_app = ""
+    input("Data file not found or was corrupted. Press enter to exit.")
+    sys.exit(1)
+
+clear()
 
 start_time = time.time()
 # Main loop
