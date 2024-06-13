@@ -2,6 +2,20 @@ import glob
 import psutil
 import time
 import os
+import sys
+
+# Constant variables
+
+recorded_seconds = 0
+file_time = 0
+file_list = []
+file_app = ""
+run = True
+data_file = ""
+data_file_dir = "data/"
+
+# appname : time
+file_dict = {}
 
 print("\n*** Please ensure that the target application is running ***\n")
 time.sleep(1)
@@ -11,6 +25,17 @@ run = False
 # Checks if any text file exists in the directory
 def any_text_file_exists(directory):
     return bool(glob.glob(os.path.join(directory, '*.txt')))
+
+# parses data files into a dictionary
+def parse_data_file(directory):
+    global file_dict
+    for file in glob.glob(os.path.join(directory, '*.txt')):
+        with open(file, "r") as f:
+            lines = f.readlines()
+            if len(lines) >= 2:
+                app_name = lines[1].strip()
+                app_time = int(lines[0].strip())
+                file_dict[app_name] = app_time
 
 # Creates a directory for user data
 os.makedirs("data/", exist_ok=True)
@@ -29,27 +54,24 @@ def time_breakdown(secs):
     minutes, seconds = divmod(remainder, 60)
     return f"{hours} hours {minutes} minutes and {seconds} seconds"
 
-# Constant variables
-recorded_seconds = 0
-file_time = 0
-file_list = []
-file_app = ""
-run = True
-data_file = ""
-
-# Handling for data file
-data_file_dir = "data/"
 
 if any_text_file_exists(data_file_dir):
-    ans = input("Continue from previous session (c) or start to a new one? (n): ").lower()
+    parse_data_file(data_file_dir)
+    ans = input("Continue from previous session (c) or start a new one (n)? ").lower()
     if ans == "c":
-        with open(data_file, "r") as file:
-            file_list = file.readlines()
-            file_time = int(file_list[0])
-            file_app = file_list[1].rstrip('\n')
-        print(f"Adding time to previous session(s) of {time_breakdown(file_time)} in {file_app}")
-    elif ans == "n":
-        os.remove(data_file)
+        # Let user choose which app to continue
+        print("Available apps to continue:")
+        for app in file_dict:
+            print(f"- Name: {app}, Time: {time_breakdown(app[0])}")
+        file_app = input("Which app would you like to continue tracking? ")
+        if file_app in file_dict:
+            file_time = file_dict[file_app]
+            data_file = f"{data_file_dir}/{file_app}_data.txt"
+            print(f"Adding time to previous session(s) of {time_breakdown(file_time)} in {file_app}")
+        else:
+            print("Error: App not found. Starting a new session.")
+            ans = "n"
+    elif ans == "n" or file_app == "":
         flag = True
         while flag:
             file_app = input("What new app would you like to track? ")
@@ -69,8 +91,12 @@ else:
             flag = False
             data_file = f"{data_file_dir}/{file_app}_data.txt"
 
-with open(data_file, "w") as file:
-    pass
+try:
+    with open(data_file, "w") as file:
+        pass
+except FileNotFoundError:
+    input("Data file not found or was corrupted. Press enter to exit and try again.")
+    sys.exit()
 
 start_time = time.time()
 # Main loop

@@ -1,6 +1,6 @@
 # Application Runtime Tracker
 
-This Python script tracks the runtime of a specified application, logging the duration the application is running over multiple sessions.
+This Python script tracks the runtime of a specified application, logging the duration the application is running over multiple sessions, with unique sessions for each app.
 
 ## Features
 
@@ -17,7 +17,7 @@ This Python script tracks the runtime of a specified application, logging the du
 1. Check [releases](https://github.com/Techi-Joe/app_usage/releases)
 2. download the latest version
 
-## Installation (newest version, may be unstable)
+## Installation (latest features, may be unstable)
 
 1. Clone this repository:
     ```sh
@@ -47,11 +47,9 @@ This Python script tracks the runtime of a specified application, logging the du
 
 5. The script will display the tracked runtime in real-time. To stop tracking, close the tracked application.
 
-6. After stopping, you will be prompted to save the data:
-    - **Save**: The session's runtime will be added to the previous total runtime and saved.
-    - **Discard**: The session's runtime will be discarded.
+6. After stopping the tracked application, you will be prompted to save the data
 
 ## Notes
 
 - Ensure the application to be tracked is running before you start the script.
-- The script saves runtime data in `data/[app name].txt`.
+- The script saves runtime data in `data/[app name]_data.txt`.
