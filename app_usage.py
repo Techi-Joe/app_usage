@@ -1,3 +1,50 @@
+"""
+App Usage Tracker
+=================
+
+This script tracks the usage time of a specified application. 
+It monitors the running time of the application
+and saves the session data to a file. 
+The script can also continue from a previous session.
+
+Features:
+---------
+- Checks if the specified application is running.
+- Records the running time of the application.
+- Saves session data to a file.
+- Allows continuation from a previous session.
+- Provides a user-friendly interface to select or add new applications to track.
+
+Usage:
+------
+1. Ensure the target application is running.
+2. Run the script.
+3. Choose to continue from a previous session or start a new one.
+4. The script will monitor the application and record the running time.
+5. Optionally save the session data when exiting.
+
+Modules Required:
+-----------------
+- glob: for file pattern matching.
+- psutil: for process management.
+- time: for time tracking and sleeping.
+- os: for operating system dependent functionality.
+- sys: for system-specific parameters and functions.
+
+Functions:
+----------
+- clear(): Clears the terminal screen.
+- name_from_exe(exename): Parses executable filename to give just the name.
+- any_data_file_exists(directory): Checks if any data file exists in the directory.
+- parse_data_file(directory): Parses data files into a dictionary.
+- is_exe(name, run): Checks if the target executable is running.
+- time_breakdown(secs): Takes time in seconds and returns a formatted string.
+
+Author:
+-------
+Techi-Joe
+"""
+
 import glob
 import psutil
 import time

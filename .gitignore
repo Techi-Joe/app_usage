@@ -12,3 +12,6 @@ b64.py
 
 # virtual environment
 /.venv
+
+# whatever tf this is
+.DS_Store
