@@ -12,7 +12,7 @@ This Python script tracks the runtime of a specified application, logging the du
 
 - Python 3.12
 
-## Installation (stable)
+## LTS Installation (stable, windows only for now)
 
 1. Check [releases](https://github.com/Techi-Joe/app_usage/releases)
 2. download the latest version
@@ -47,7 +47,7 @@ This Python script tracks the runtime of a specified application, logging the du
 
 5. The script will display the tracked runtime in real-time. To stop tracking, close the tracked application.
 
-6. After stopping the tracked application, you will be prompted to save the data
+6. After fully quitting the tracked application, you will be prompted to save the data
 
 ## Notes
 
