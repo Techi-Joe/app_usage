@@ -108,7 +108,7 @@ def parse_data_file(directory):
                 try:
                     app_time = int(lines[0].strip())
                 except ValueError:
-                    print(f"Error parsing time in {file}. Reseting to 0 seconds.")
+                    print(f"Error parsing time in {file}. Resetting to 0 seconds.")
                     app_time = 0
                 file_dict[app_name] = app_time
             else:
@@ -189,7 +189,7 @@ else:
     while flag:
 
         if os.name == "nt":
-            print("Note: on windows, use the executable name rather than the app name; e.g., 'app_usage-2.0.exe' instead of 'App Usage'. Sometimes this name is different from the one that appears in the system tray.")
+            print("Note: on windows, use the executable name rather than the app name; e.g., \'app_usage-2.0.exe\' instead of \'App Usage\'. Sometimes this name is different from the one that appears in the system tray.")
 
         file_app = input("\nWhat app would you like to track? ")
         if is_exe(file_app, run):
