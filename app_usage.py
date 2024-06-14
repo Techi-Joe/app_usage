@@ -56,10 +56,18 @@ def parse_data_file(directory):
     for file in glob.glob(os.path.join(directory, '*.txt')):
         with open(file, "r") as f:
             lines = f.readlines()
-            if len(lines) >= 2:
+            if len(lines) == 2:
                 app_name = lines[1].strip()
-                app_time = int(lines[0].strip())
+                try:
+                    app_time = int(lines[0].strip())
+                except ValueError:
+                    print(f"Error parsing time in {file}. Reseting to 0 seconds.")
+                    app_time = 0
                 file_dict[app_name] = app_time
+            else:
+                print(f"Error parsing data file: {file}")
+                os.remove(file)
+                print(f"{file} was deleted.")
 
 # Checks if target executable is running
 def is_exe(name, run):
@@ -80,7 +88,10 @@ def time_breakdown(secs):
 
 if any_text_file_exists(data_file_dir):
     parse_data_file(data_file_dir)
-    ans = input("Continue from a previous session (c) or start a new one (n)? ").lower()
+    if len(file_dict) > 0:
+        ans = input("Continue from a previous session (c) or start a new one (n)? ").lower()
+    else:
+        ans = "n"
 
     if ans == "c":
         clear()
@@ -89,7 +100,7 @@ if any_text_file_exists(data_file_dir):
 
         for app in file_dict:
             print(f"- {app}: {time_breakdown(int(file_dict[app]))} on record")
-        file_app = input("Which app would you like to continue tracking? ")
+        file_app = input("\nWhich app would you like to continue tracking? ")
 
         if file_app in file_dict:
             file_time = file_dict[file_app]
