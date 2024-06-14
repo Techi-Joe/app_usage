@@ -37,6 +37,15 @@ def clear():
     else:
         os.system('clear')
 
+# parses exe filename to give just the name
+def name_from_exe(exename):
+    if os.name == 'nt' or exename.endswith('.app'):
+        # Split on the last period to avoid issues with multiple periods in the name
+        split_exe_name, exe = exename.rsplit('.', 1)
+        return split_exe_name
+    # On Unix-like systems, return the name as is, unless it is .app
+    return exename
+
 # Checks if any text file exists in the directory
 def any_text_file_exists(directory):
     return bool(glob.glob(os.path.join(directory, '*.txt')))
@@ -71,7 +80,7 @@ def time_breakdown(secs):
 
 if any_text_file_exists(data_file_dir):
     parse_data_file(data_file_dir)
-    ans = input("Continue from previous session (c) or start a new one (n)? ").lower()
+    ans = input("Continue from a previous session (c) or start a new one (n)? ").lower()
 
     if ans == "c":
         clear()
@@ -99,7 +108,7 @@ if any_text_file_exists(data_file_dir):
                 erase_q = input("You have a previous session of this application on record. Do you want to erase it? (y/n): ").lower()
                 if erase_q in ["y", "n"]:
                     if erase_q == "y":
-                        os.remove(f"{data_file_dir}{file_app}_data.txt")
+                        os.remove(f"{data_file_dir}{name_from_exe(file_app)}_data.txt")
                     else:
                         input("To continue with your previous session, please restart app usage. Press enter to exit.")
                         sys.exit()
@@ -109,7 +118,7 @@ if any_text_file_exists(data_file_dir):
 
             if is_exe(file_app, run):
                 flag = False
-                data_file = f"{data_file_dir}{file_app}_data.txt"
+                data_file = f"{data_file_dir}{name_from_exe(file_app)}_data.txt"
             else:
                 print("Please ensure that the target application is running")
     else:
@@ -127,7 +136,7 @@ else:
         file_app = input("\nWhat app would you like to track? ")
         if is_exe(file_app, run):
             flag = False
-            data_file = f"{data_file_dir}{file_app}_data.txt"
+            data_file = f"{data_file_dir}{name_from_exe(file_app)}_data.txt"
 
 try:
     with open(data_file, "w") as file:
@@ -145,7 +154,7 @@ start_time = time.time()
 while run:
     current_time = time.time()
     elapsed_time = round(current_time - start_time)
-    time.sleep(0.1)
+    time.sleep(0.5)
 
     if is_exe(file_app, run):
         if elapsed_time > recorded_seconds:
