@@ -43,6 +43,10 @@ Functions:
 Author:
 -------
 Techi-Joe
+
+License:
+--------
+This project is licensed under the GPT-3.0 License.
 """
 
 import glob
