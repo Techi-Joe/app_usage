@@ -40,7 +40,7 @@ This Python script tracks the runtime of a specified application, logging the du
 
 2. The script will prompt you to ensure that the target application is running. After a short delay, it will proceed.
 
-3. If a previous session is detected, you will be prompted to continue from the previous session or start a new one:
+3. If previous sessions are detected, you will be prompted to continue from a previous session or start a new one:
     - **Continue**: The script will add time to a previous session's runtime, which you select from a list.
     - **New**: The script will start a new tracking session.
 
