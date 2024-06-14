@@ -6,7 +6,7 @@ import sys
 
 
 #----------------------------------------------------------------
-# Constant variables
+# Define variables
 
 recorded_seconds = 0
 file_time = 0
@@ -95,6 +95,18 @@ if any_text_file_exists(data_file_dir):
         while flag:
             file_app = input("What new app would you like to track? ")
 
+            if file_app in file_dict.keys():
+                erase_q = input("You have a previous session of this application on record. Do you want to erase it? (y/n): ").lower()
+                if erase_q in ["y", "n"]:
+                    if erase_q == "y":
+                        os.remove(f"{data_file_dir}{file_app}_data.txt")
+                    else:
+                        input("To continue with your previous session, please restart app usage. Press enter to exit.")
+                        sys.exit()
+                else:
+                    input("Error: not a valid response. Defaulting to no. Press enter to exit.")
+                    sys.exit()
+
             if is_exe(file_app, run):
                 flag = False
                 data_file = f"{data_file_dir}{file_app}_data.txt"
@@ -110,8 +122,8 @@ else:
     while flag:
 
         if os.name == "nt":
-            print("Note: on windows, use the executable name rather than the app name; e.g., 'Spotify.exe' instead of 'Spotify')")
-            
+            print("Note: on windows, use the executable name rather than the app name; e.g., 'app_usage-2.0.exe' instead of 'App Usage'. Sometimes this name is different from the one that appears in the system tray.")
+
         file_app = input("\nWhat app would you like to track? ")
         if is_exe(file_app, run):
             flag = False
