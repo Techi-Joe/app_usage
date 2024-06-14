@@ -32,7 +32,7 @@ This Python script tracks the runtime of a specified application, logging the du
 
 ## Usage
 
-1. Run the script (for stable releases, simply double-click the exe):
+1. Run the script (for LTS versions, simply double-click the exe):
     ```sh
     python app_usage.py
     ```
@@ -43,7 +43,7 @@ This Python script tracks the runtime of a specified application, logging the du
     - **Continue**: The script will add time to the previous session's runtime.
     - **New**: The script will start a new tracking session.
 
-4. If starting a new session, enter the exact name of the executable you want to track. For Windows, this should be the executable name (e.g., `Spotify.exe` for Spotify).
+4. If starting a new session, enter the exact name of the executable you want to track. For Windows, this should be the executable name (e.g., `app_usage-2.0.exe` for `App Usage`).
 
 5. The script will display the tracked runtime in real-time. To stop tracking, close the tracked application.
 
