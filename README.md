@@ -1,4 +1,5 @@
-# Application Runtime Tracker
+# App Usage
+### Application Runtime Tracker
 
 This Python script tracks the runtime of a specified application, logging the duration the application is running over multiple sessions, with unique sessions for each app.
 
