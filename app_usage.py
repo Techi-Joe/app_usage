@@ -46,14 +46,14 @@ def name_from_exe(exename):
     # On Unix-like systems, return the name as is, unless it is .app
     return exename
 
-# Checks if any text file exists in the directory
-def any_text_file_exists(directory):
-    return bool(glob.glob(os.path.join(directory, '*.txt')))
+# Checks if any data file exists in the directory
+def any_data_file_exists(directory):
+    return bool(glob.glob(os.path.join(directory, '*.dat')))
 
 # parses data files into a dictionary
 def parse_data_file(directory):
     global file_dict
-    for file in glob.glob(os.path.join(directory, '*.txt')):
+    for file in glob.glob(os.path.join(directory, '*.dat')):
         with open(file, "r") as f:
             lines = f.readlines()
             if len(lines) == 2:
@@ -86,7 +86,7 @@ def time_breakdown(secs):
 #----------------------------------------------------------------
 # data file handling
 
-if any_text_file_exists(data_file_dir):
+if any_data_file_exists(data_file_dir):
     parse_data_file(data_file_dir)
     if len(file_dict) > 0:
         ans = input("Continue from a previous session (c) or start a new one (n)? ").lower()
@@ -104,7 +104,7 @@ if any_text_file_exists(data_file_dir):
 
         if file_app in file_dict:
             file_time = file_dict[file_app]
-            data_file = f"{data_file_dir}{file_app}_data.txt"
+            data_file = f"{data_file_dir}{file_app}_data.dat"
         else:
             print("Error: App not found.")
             ans = "n"
@@ -119,7 +119,7 @@ if any_text_file_exists(data_file_dir):
                 erase_q = input("You have a previous session of this application on record. Do you want to erase it? (y/n): ").lower()
                 if erase_q in ["y", "n"]:
                     if erase_q == "y":
-                        os.remove(f"{data_file_dir}{name_from_exe(file_app)}_data.txt")
+                        os.remove(f"{data_file_dir}{name_from_exe(file_app)}_data.dat")
                     else:
                         input("To continue with your previous session, please restart app usage. Press enter to exit.")
                         sys.exit()
@@ -129,7 +129,7 @@ if any_text_file_exists(data_file_dir):
 
             if is_exe(file_app, run):
                 flag = False
-                data_file = f"{data_file_dir}{name_from_exe(file_app)}_data.txt"
+                data_file = f"{data_file_dir}{name_from_exe(file_app)}_data.dat"
             else:
                 print("Please ensure that the target application is running")
     else:
@@ -147,7 +147,7 @@ else:
         file_app = input("\nWhat app would you like to track? ")
         if is_exe(file_app, run):
             flag = False
-            data_file = f"{data_file_dir}{name_from_exe(file_app)}_data.txt"
+            data_file = f"{data_file_dir}{name_from_exe(file_app)}_data.dat"
 
 try:
     with open(data_file, "w") as file:
