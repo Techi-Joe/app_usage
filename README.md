@@ -53,4 +53,4 @@ This Python script tracks the runtime of a specified application, logging the du
 ## Notes
 
 - Ensure the application to be tracked is running before you start the script.
-- The script saves runtime data in `data/[app name]_data.txt`.
+- The script saves runtime data in `data/[app name]_data.dat`.
