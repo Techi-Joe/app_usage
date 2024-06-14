@@ -41,7 +41,7 @@ This Python script tracks the runtime of a specified application, logging the du
 2. The script will prompt you to ensure that the target application is running. After a short delay, it will proceed.
 
 3. If a previous session is detected, you will be prompted to continue from the previous session or start a new one:
-    - **Continue**: The script will add time to the previous session's runtime.
+    - **Continue**: The script will add time to a previous session's runtime, which you select from a list.
     - **New**: The script will start a new tracking session.
 
 4. If starting a new session, enter the exact name of the executable you want to track. For Windows, this should be the executable name (e.g., `app_usage-2.0.exe` for `App Usage`).
