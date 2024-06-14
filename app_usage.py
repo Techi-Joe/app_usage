@@ -5,6 +5,7 @@ import os
 import sys
 
 
+#----------------------------------------------------------------
 # Constant variables
 
 recorded_seconds = 0
@@ -26,6 +27,10 @@ time.sleep(1)
 
 run = True
 
+#----------------------------------------------------------------
+# functions
+
+# clear the terminal
 def clear():
     if os.name == 'nt':
         os.system('cls')
@@ -61,26 +66,35 @@ def time_breakdown(secs):
     minutes, seconds = divmod(remainder, 60)
     return f"{hours} hours {minutes} minutes and {seconds} seconds"
 
+#----------------------------------------------------------------
+# data file handling
 
 if any_text_file_exists(data_file_dir):
     parse_data_file(data_file_dir)
     ans = input("Continue from previous session (c) or start a new one (n)? ").lower()
+
     if ans == "c":
+        clear()
         # Let user choose which app to continue
         print("Available sessions to continue:")
+
         for app in file_dict:
             print(f"- {app}: {time_breakdown(int(file_dict[app]))} on record")
         file_app = input("Which app would you like to continue tracking? ")
+
         if file_app in file_dict:
             file_time = file_dict[file_app]
             data_file = f"{data_file_dir}{file_app}_data.txt"
         else:
             print("Error: App not found.")
             ans = "n"
+
     elif ans == "n" or file_app == "":
         flag = True
+
         while flag:
             file_app = input("What new app would you like to track? ")
+
             if is_exe(file_app, run):
                 flag = False
                 data_file = f"{data_file_dir}{file_app}_data.txt"
@@ -92,8 +106,13 @@ if any_text_file_exists(data_file_dir):
         run = False
 else:
     flag = True
+
     while flag:
-        file_app = input("(Note: on windows, use the executable name rather than the app name; e.g., 'Spotify.exe' instead of 'Spotify')\n\nWhat app would you like to track? ")
+
+        if os.name == "nt":
+            print("Note: on windows, use the executable name rather than the app name; e.g., 'Spotify.exe' instead of 'Spotify')")
+            
+        file_app = input("\nWhat app would you like to track? ")
         if is_exe(file_app, run):
             flag = False
             data_file = f"{data_file_dir}{file_app}_data.txt"
@@ -107,11 +126,14 @@ except FileNotFoundError:
 
 clear()
 
+#----------------------------------------------------------------
+# main code loop
+
 start_time = time.time()
-# Main loop
 while run:
     current_time = time.time()
     elapsed_time = round(current_time - start_time)
+    time.sleep(0.1)
 
     if is_exe(file_app, run):
         if elapsed_time > recorded_seconds:
