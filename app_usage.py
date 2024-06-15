@@ -225,7 +225,7 @@ while run:
                 start_time = time.time()
                 print(file_app + " is being tracked!")
         elif recorded_seconds > 0:
-            print('\r' + time_breakdown(recorded_seconds) + " recorded this session", end="")
+            print('\r' + time_breakdown(recorded_seconds) + " recorded", end="")
     elif recorded_seconds >= 1:
         break
 
@@ -235,7 +235,7 @@ if run:
     if usr_in.lower() != "n":
         with open(data_file, "w") as file:
             file.write(f"{file_time+recorded_seconds}\n{file_app}")
-        print("Total project runtime: " + time_breakdown(file_time+recorded_seconds))
+        print("Total session runtime: " + time_breakdown(file_time+recorded_seconds))
     elif usr_in.lower() not in ["y", "n"]:
         print("Warning: Bad user input, runtime was saved automatically")
         with open(data_file, "w") as file:
