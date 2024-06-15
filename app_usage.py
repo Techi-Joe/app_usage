@@ -1,6 +1,6 @@
 """
-App Usage Tracker
-=================
+App Usage
+=========
 
 This script tracks the usage time of a specified application. 
 It monitors the running time of the application
@@ -46,7 +46,7 @@ Techi-Joe
 
 License:
 --------
-This project is licensed under the GPT-3.0 License.
+This project is licensed under the GPL-3.0 License.
 """
 
 import glob
@@ -75,8 +75,6 @@ os.makedirs(data_file_dir, exist_ok=True)
 
 print("\n*** Please ensure that the target application is running ***\n")
 time.sleep(1)
-
-run = True
 
 #----------------------------------------------------------------
 # functions
@@ -164,7 +162,7 @@ if any_data_file_exists(data_file_dir):
         flag = True
 
         while flag:
-            file_app = input("What new app would you like to track? ")
+            file_app = input("What app would you like to track? ")
 
             if file_app in file_dict.keys():
                 erase_q = input("You have a previous session of this application on record. Do you want to erase it? (y/n): ").lower()
@@ -172,11 +170,11 @@ if any_data_file_exists(data_file_dir):
                     if erase_q == "y":
                         os.remove(f"{data_file_dir}{name_from_exe(file_app)}_data.dat")
                     else:
-                        input("To continue with your previous session, please restart app usage. Press enter to exit.")
+                        input("To continue with your previous session, please restart App Usage. Press enter to exit.")
                         sys.exit()
                 else:
                     input("Error: not a valid response. Defaulting to no. Press enter to exit.")
-                    sys.exit()
+                    sys.exit(1)
 
             if is_exe(file_app, run):
                 flag = False
@@ -184,9 +182,8 @@ if any_data_file_exists(data_file_dir):
             else:
                 print("Please ensure that the target application is running")
     else:
-        print("Error: Invalid user input. Press enter to exit and try again.")
-        input()
-        run = False
+        input("Error: Invalid user input. Press enter to exit and try again.")
+        sys.exit(1)
 else:
     flag = True
 
@@ -216,7 +213,6 @@ start_time = time.time()
 while run:
     current_time = time.time()
     elapsed_time = round(current_time - start_time)
-    time.sleep(0.5)
 
     if is_exe(file_app, run):
         if elapsed_time > recorded_seconds:
@@ -225,9 +221,11 @@ while run:
                 start_time = time.time()
                 print(file_app + " is being tracked!")
         elif recorded_seconds > 0:
-            print('\r' + time_breakdown(recorded_seconds) + " recorded", end="")
+            print('\r' + time_breakdown(recorded_seconds) + " recorded", end="  \r")
     elif recorded_seconds >= 1:
         break
+
+    time.sleep(0.5)
 
 # Ask the user if they want to save data
 if run:
