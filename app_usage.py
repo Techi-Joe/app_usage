@@ -219,8 +219,8 @@ while run:
             if recorded_seconds == 1:
                 start_time = time.time()
                 print(file_app + " is being tracked!")
-        elif recorded_seconds > 0:
-            print('\r' + time_breakdown(recorded_seconds) + " recorded", end="  \r")
+            elif recorded_seconds > 0:
+                print('\r' + time_breakdown(recorded_seconds) + " recorded", end="  \r")
     elif recorded_seconds >= 1:
         break
 
