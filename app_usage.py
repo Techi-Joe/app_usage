@@ -213,7 +213,6 @@ start_time = time.time()
 while run:
     current_time = time.time()
     elapsed_time = round(current_time - start_time)
-
     if is_exe(file_app, run):
         if elapsed_time > recorded_seconds:
             recorded_seconds += 1
@@ -225,7 +224,7 @@ while run:
     elif recorded_seconds >= 1:
         break
 
-    time.sleep(0.5)
+    time.sleep(1)
 
 # Ask the user if they want to save data
 if run:
