@@ -238,4 +238,7 @@ if run:
         print("Warning: Bad user input, runtime was saved automatically")
         with open(data_file, "w") as file:
             file.write(f"{file_time+recorded_seconds}\n{file_app}")
+    else:
+        with open(data_file, "w") as file:
+            file.write(f"{file_time}\n{file_app}")
     input("Press enter to exit")
