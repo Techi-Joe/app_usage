@@ -11,7 +11,7 @@ This Python script tracks the runtime of a specified application, logging the du
 
 ## Requirements
 
-- Python 3.12
+- Python 3.12.3
 
 ## LTS Installation (stable, windows only for now)
 
@@ -49,6 +49,7 @@ This Python script tracks the runtime of a specified application, logging the du
 5. The script will display the tracked runtime in real-time. To stop tracking, close the tracked application.
 
 6. After fully quitting the tracked application, you will be prompted to save the data
+
 
 ## Notes
 

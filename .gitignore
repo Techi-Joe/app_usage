@@ -1,5 +1,6 @@
 # session data
 data/*.dat
+data
 
 # cache
 __pycache__
@@ -18,3 +19,11 @@ b64.py
 
 # whatever tf this is
 .DS_Store
+
+# build
+build/
+dist/
+*.spec
+
+# temp place for gui
+src
